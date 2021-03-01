@@ -1,0 +1,22 @@
+item,cost,quantity,total
+chalk,3.50,2,=cost*quantity
+cheese,1.99,10,=cost*quantity
+Total{boldface},,sum(1:,total)
+<config>
+{
+  "_version": 1.1,
+  "_name": "mySheet"
+}
+</config>
+
+<style>
+th{
+  background: blue;
+}
+.boldface{
+  fontweight: 500;
+}
+</style>
+<something else>
+content
+</something>
