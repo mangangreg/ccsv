@@ -1,6 +1,7 @@
 item,cost,quantity,total
 chalk,3.50,2,=cost*quantity
 cheese,1.99,1,=cost*quantity
+Total{boldface},, sum(1: ; 'total')
 
 <config>
 {
@@ -8,6 +9,7 @@ cheese,1.99,1,=cost*quantity
   "_name": "mySheet"
 }
 </config>
+
 <style>
 
 th{
@@ -17,7 +19,9 @@ th{
 .boldface{
   fontweight: 500;
 }
+
 </style>
+
 <meta>
 something
 </meta>
