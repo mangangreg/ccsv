@@ -1,87 +1,50 @@
 import re
 import csv
-
-# Patterns
-re_open_tag = r'\s*<(?P<name>[^/][a-z]+)(?P<attrs>[^>]*)>\s*'
-re_close_tag = r'\s*</(?P<name>[a-z]+)\s*>\s*'
-
-
-match = re.match(re_open_tag,'<config something="yeah" no>')
-if match:
-    print(match)
-    print(match.groupdict())
-
+import yaml
+from io import StringIO
 
 def file_splitter(filename):
+    ''' 
+    Split the file into csv and config
+    
+    Returns:
+        csv_lines (list): list of strings where each string is a line of csv
+        config (dict): the parsed config from the yaml
+    
     '''
-    Load the .ccsv file and split it into the csv part and the tags
-
-    Inputs:
-        - filename (str or Path): the file to be loaded
-
-    Outputs:
-        - csv_lines (list): a list where each entry corresponds to a line and is a list of strings
-        - tags (dict): a mapping from tag name (str) to properties (dict)
-    '''
+    reading_yaml_header = False
+    yaml_line_count = 0
+    
     csv_lines = []
-    tags = {}
-
-    # First read csv content at the top of the file
+    yaml_lines = []
     with open(filename, 'r') as rfile:
-
-        for line in csv.reader(rfile):
-            # skip blank lines
-            if not len(line):
+        for i, line in enumerate(csv.reader(rfile)):
+            if i == 0 and line[0].startswith('---'):
+                reading_yaml_header = True
                 continue
-            # Check if first "cell" actually has a tag
-            open_tag_match = re.match(re_open_tag,line[0])
-            if open_tag_match:
-                break
-            else:
-                csv_lines.append(line)
-
-        # If finished reading the file and no tags found, return
-        if not bool(open_tag_match):
-            return csv_lines, tags
-
-        # Otherwise, tags are present. Start splitting out the tags
-        current_tag = open_tag_match.groupdict()['name']
-        current_tag_contents = ''
-
-        # Now use rfile (csv reader has moved the pointer to the right point in the file)
-        for line in rfile.readlines():
-
-            # If we have an open tag in hand
-            if current_tag:
-
-                # Check if this tag is getting closed
-                close_tag_match = re.match(re_close_tag, line)
-                if close_tag_match:
-                    if close_tag_match.groupdict()['name'] == current_tag:
-                        print(f'found closing tag for <{current_tag}>')
-                    else:
-                        raise ValueError(f'Incorrect closing tag found for <{current_tag}> tag')
-
-                    # Store the contents and clear the temporary variables
-                    tags[current_tag] = current_tag_contents
-                    current_tag_contents = ''
-                    current_tag = None
-                    open_tag_found = False
+                
+            if reading_yaml_header:
+                if line[0].startswith('---'):
+                    reading_yaml_header = False
                     continue
-
-                # If tag not closd in this line, append the contents
+                    
                 else:
-                    current_tag_contents += line.strip()
-
-            # Otherwise we are looking for a new open tag
+                    yaml_line_count += 1
             else:
-                open_tag_match = re.match(re_open_tag,line)
-                if open_tag_match:
-                    current_tag = open_tag_match.groupdict()['name']
-                    current_tag_contents = ''
-                    continue
-
-    return csv_lines, tags
+                if len(line):
+                    csv_lines.append(line)
+    if yaml_line_count:
+        with open(filename, 'r') as rfile:
+            for i, line in enumerate(rfile):
+                if i == 0:
+                    continue 
+                elif i > yaml_line_count: 
+                    break
+                else:
+                    yaml_lines.append(line.rstrip())
+        
+    config = yaml.safe_load(StringIO("\n".join(yaml_lines)))
+    return csv_lines, config
 
 
 def cell_parser(cell_string):

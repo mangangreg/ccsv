@@ -14,7 +14,7 @@ def compute_ccsv(fpath):
     Inputs:
         - fpath (str or Path)
     '''
-    csv_lines, tags = ptools.file_splitter(fpath)
+    csv_lines, config = ptools.file_splitter(fpath)
     computed_lines = ptools.compute_lines(csv_lines)
 
     new_path = Path(fpath).resolve().with_suffix('.csv')
@@ -28,12 +28,10 @@ def compute_ccsv(fpath):
 
 @click.command()
 @click.argument('infiles', nargs=-1, type=click.Path(exists=True))
-@click.option('-f', '--force', is_flag=True, default=False)
-def main(infiles, force):
+def main(infiles):
     '''
     Compute a list of .ccsv file. For each file in INFILES, compute and output <filename>.ccsv -> <filename>.csv
     '''
-    import pdb;pdb.set_trace()
 
     for fpath in infiles:
         compute_ccsv(fpath)

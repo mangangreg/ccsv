@@ -13,7 +13,10 @@ pip install -r requiremets.txt
 ```
 
 # Usage
-
+To output a `.csv` from a `.ccsv`
+```shell
+python ccsv.py examples/demo_v1.ccsv 
+```
 
 
 # TODO
@@ -23,6 +26,7 @@ pip install -r requiremets.txt
 - [x]  Put on github
 - [x]  Move from notebook to script and run basic test
 - [ ]  Consider using YAML instead of json? [https://pyyaml.org/wiki/PyYAMLDocumentation](https://pyyaml.org/wiki/PyYAMLDocumentation)
+- [ ]  Set up testing 
 - [ ]  Find a ready-to-go computation parser?
 - [ ]  Put the csv part at the top?
     - [ ]  Use a delimiter of three hyphens, and just split the file based on that? sort of markdwon-esque
