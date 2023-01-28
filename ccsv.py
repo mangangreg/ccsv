@@ -6,8 +6,9 @@ import click
 
 sys.path.append(Path(__file__).parent)
 import parse_tools as ptools
+import web_tools as web_tools
 
-def compute_ccsv(fpath):
+def compute_ccsv(fpath, html_out=True):
     '''
     Compute and output a single ccsv file
 
@@ -23,7 +24,15 @@ def compute_ccsv(fpath):
         writer = csv.writer(wfile)
         writer.writerows(computed_lines)
 
-    print(f"Created file at {fpath}")
+    print(f"Created csv file at {new_path}")
+    
+    _, hpath = web_tools.build_html(new_path, config)
+    print(f"Created html file at {hpath}")
+    
+    
+    return fpath
+    
+    
 
 
 @click.command()

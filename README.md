@@ -18,6 +18,36 @@ To output a `.csv` from a `.ccsv`
 python ccsv.py examples/demo_v1.ccsv 
 ```
 
+# Example
+See [examples](./examples) folder for more.
+
+demo_v3_yaml.ccsv
+```yaml
+---
+name: test
+value:
+  - something1
+  - something2,3,4
+style:
+  ".body":
+    background: blue
+    color: lightgrey
+---
+item,cost,quantity,total
+chalk,3.50,2,=cost*quantity
+cheese,1.99,1,=cost*quantity
+```
+
+gets converted to 
+*demo_v3_yaml.csv*
+
+```csv
+item,cost,quantity,total
+chalk,3.50,2,7.0
+cheese,1.99,1,1.99
+```
+
+
 
 # TODO
 - [x]  Create example

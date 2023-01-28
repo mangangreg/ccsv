@@ -4,8 +4,9 @@ value:
   - something1
   - something2,3,4
 style:
-  ".body":
+  body:
     background: blue
+    color: lightgrey
 ---
 item,cost,quantity,total
 chalk,3.50,2,=cost*quantity
