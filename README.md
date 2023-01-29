@@ -55,16 +55,24 @@ cheese,1.99,1,1.99
 - [x]  Proof of concept simple computation
 - [x]  Put on github
 - [x]  Move from notebook to script and run basic test
-- [ ]  Consider using YAML instead of json? [https://pyyaml.org/wiki/PyYAMLDocumentation](https://pyyaml.org/wiki/PyYAMLDocumentation)
+- [x]  Consider using YAML instead of json? [https://pyyaml.org/wiki/PyYAMLDocumentation](https://pyyaml.org/wiki/PyYAMLDocumentation)
+- [x]  Html output
+    - [ ] Basic output
+    - [ ] Give a better formatted page, with some core style
+- [ ]  Styles
+    - [x] Basic yaml-css implementation
+    - [ ] Custom styling on cells/rows etc.
+- [ ]  Design
+    - [ ] Sketch out overall goals a bit better (workflow, CLI, interface)
 - [ ]  Set up testing 
 - [ ]  Find a ready-to-go computation parser?
-- [ ]  Put the csv part at the top?
-    - [ ]  Use a delimiter of three hyphens, and just split the file based on that? sort of markdwon-esque
-- [ ]  Add computation
+- [x]  Add computation
 - [ ]  Map out some more agreed upon base facts
 - [ ]  Read up on pyparse for more complicated parsing (here)
     - [ ]  [https://dev.to/zchtodd/building-parsers-for-fun-and-profit-with-pyparsing-4l9e](https://dev.to/zchtodd/building-parsers-for-fun-and-profit-with-pyparsing-4l9e)
-- [ ]  Stylesheets
+- [ ] Tidy
+    - [ ] clear out initial examples
+
 
 ### Future
 

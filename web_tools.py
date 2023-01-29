@@ -1,6 +1,8 @@
 import csv
 from pathlib import Path
 
+from bs4 import BeautifulSoup
+
 def compile_css(style_obj, indent=2):
     # Assume simple structure
     css_string = ''
@@ -43,6 +45,9 @@ def build_html(csv_path, config, outdir='examples'):
         </body>
     </html>
     '''
+    
+    soup = BeautifulSoup(html_string, "html.parser")
+    html_string = soup.prettify()
     
     if outdir:
         hpath = f"{outdir}/{csv_path.stem}.html"
